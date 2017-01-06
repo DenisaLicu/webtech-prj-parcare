@@ -1,0 +1,97 @@
+
+
+<html>
+   
+   <head>
+        <title>Parking System-departure</title>
+        <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+            
+        <link rel="stylesheet" type="text/css" href="stil.css">
+          
+        <script>
+      /*global $*/
+      
+      //-------------------------------------controler=obiect JavaScript , controlerul meu are 4 proprietati:floor,parcel,number,idParkingSpace si o functie care face get la server si gaseste id-ul locului de parcare
+        var mainApp = angular.module("parkingApp", []);
+        mainApp.controller('parkingController', function($scope,$http)
+         {      $scope.space = 
+                {
+                    floor:"",
+                    parcel:"",
+                    number:"",
+                    idParkingSpace:""
+                },
+                $scope.loadData = function () 
+                {
+                    $http.get("/parkingSpaces").success(function(data) 
+                    {   var spaceObject;
+                        spaceObject=$scope.space;
+                       for(var i = 0; i<data.length;i++) 
+                        {  if(data[i].floor==spaceObject.floor && data[i].parcel==(spaceObject.parcel.toUpperCase())&&data[i].number==spaceObject.number)
+                            {$scope.idParkingSpace=data[i].idParkingSpace;
+                               return $scope.idParkingSpace; 
+                            }
+                        }
+                    });
+                }
+                
+        });
+         
+      </script>
+   </head>
+   
+   <body>
+       <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6"  style="background-color:white;">
+                    <div >
+                        <div class="bon">
+                            <div class="text">Enter your parking space dates:</div>
+                            <form name="myForm" ng-app = "parkingApp" ng-controller = "parkingController" class="form-horizontal" id="formular">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="fl">Floor:</label>
+                                    <div class="col-sm-10">
+                                        <input name="myFloor" type="text" ng-model="space.floor" placeholder="Enter floor here"  class="form-control" id="fl" required>
+                                    </div>
+                                    <span class="rosu" ng-show="myForm.myFloor.$touched && myForm.myFloor.$invalid">The floor is required !</span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="pr">Parcel:</label>
+                                    <div class="col-sm-10">
+                                        <input name="myParcel" type="text" ng-model="space.parcel" placeholder="Enter parcel here"  class="form-control" id="pr" required>
+                                    </div>
+                                    <span class="rosu" ng-show="myForm.myParcel.$touched && myForm.myParcel.$invalid">The parcel is required !</span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="nr">Number:</label>
+                                    <div class="col-sm-10">
+                                        <input name="myNumber" type="text" ng-model="space.number" placeholder="Enter number here"  class="form-control" id="nr" required>
+                                    </div>
+                                    <span class="rosu" ng-show="myForm.myNumber.$touched && myForm.myNumber.$invalid">The number is required !</span>
+                                </div>
+                                <div class="form-group">        
+                                  <div class="col-sm-offset-2 col-sm-10">
+                                    <button  class="btn btn-default btn-block" ng-click="loadData()">OK</button>
+                                  </div>
+                                </div>
+                                
+                                Ticket id: <input name="myTicketId" type="text"  placeholder="Enter ticket id here" required>
+                                <span class="rosu" ng-show="myForm.myTicketId.$touched && myForm.myTicketId.$invalid">The number is required !</span><br>
+                                
+                                Id={{idParkingSpace}}
+                            </form>
+                        </div>
+                    </div>    
+                </div>
+                <div class="col-sm-6 " style="background-color:blue;">
+                    gg
+                </div>
+            </div>
+        </div>    
+        
+      
+      
+   </body>
+</html>

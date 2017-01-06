@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title> Parking System </title>
+        <title> Parking System-entry</title>
     
         <link rel="stylesheet" type="text/css" href="stil.css">
         	
@@ -10,7 +10,6 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         
         
@@ -335,7 +334,7 @@
                 <!------------------------------------------------------parcare---------------------------------------------------------------------------------->
                 
                 <div class="col-sm-9 " style="background-color:white;">
-                  <div class"parking" align="center">
+                  <div class="parking" >
                       <div id="floor0">
                            <div class="btn-group-vertical" >
                                 <button type="button" class="btn btn-default "><i class="fa fa-car" aria-hidden="true"></i>&nbsp;</button>
@@ -398,9 +397,9 @@
                     
                     <div class="legenda" align=center>
                             <button class="btn btn-warning"><i class="fa fa-car" aria-hidden="true"></i>&nbsp;</button>
-                            <span>Liber</span>
+                            <span>Available</span>
                             <button class="btn btn-danger"><i class="fa fa-car" aria-hidden="true"></i>&nbsp;</button>
-                            <span>Ocupat</span>
+                            <span>Busy</span>
                     </div>
                     
                 </div>
@@ -452,33 +451,26 @@
                 <!------------------------------------------------------ticket---------------------------------------------------------------------------------->
                 
                 
-                <div class="col-sm-3" style="background-color:yellow;">
+                <div class="col-sm-3" style="background-color:white;">
+                    <div >
+                         <!------------------------------------------formular adauga noi locuri de parcare ------------------------------->
+                        <div id="ticket">
+                            <div id="antet">
+                                <h3 >PARKING TICKET</h3>
+                            </div>
+                            <div id="place">
+                                <div id="floor" class="center"></div>
+                                <div id="parcel" class="center"></div>
+                                <div id="number" class="center"></div>
+                                <div id="date" class="center"></div>
+                            </div>
+                        </div>  
                     
-                    <!------------------------------------------formular adauga noi locuri de parcare ------------------------------->
-                    <form method="post" action="/parkingSpaces">
-                        <input type="test" name="number">
-                        <input type="test" name="parcel">
-                        <input type="test" name="floor">
-                        <input type="submit">
-                    </form>
-                    
-                <div id="ticket">
-                    <div id="antet">
-                    <h3 >PARKING TICKET</h3>
-                    </div>
-                    <div id="place">
+                        <div >
+                            <buton class="btn btn-default " onClick="newClient()"  data-toggle='modal' data-target='#modalLiber'>Print ticket</buton>
+                        </div>
                         
-                    <div id="floor" class="center"></div>
-                    <div id="parcel" class="center"></div>
-                    <div id="number" class="center"></div>
-                    <div id="date" class="center"></div>
-                    
-                    </div>
-                </div>   
-                <div >
-                    <buton class="btn btn-info " onClick="newClient()"  data-toggle='modal' data-target='#modalLiber'>Tipareste</buton>
-                </div>
-                
+                    </div>    
                     
                 </div>
                 

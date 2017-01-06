@@ -322,9 +322,10 @@ sequelize.sync();
 
 //---------------------------------------------------------------------------------------------------------------------------
 
-app.use('/intrare',express.static('intrare'));
-app.use(express.static('intrare'));
+app.use('/entry',express.static('entry'));
+app.use(express.static('entry'));
 
-app.use('/revedere',express.static('revedere'));
+app.use('/departure',express.static('departure'));
+
 
 app.listen(process.env.PORT);
