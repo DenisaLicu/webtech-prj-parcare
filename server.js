@@ -3,6 +3,7 @@ var bodyParser = require("body-parser");
 var cors = require("cors");
 var nodeadmin = require('nodeadmin'); 
 var Sequelize = require("sequelize"); // am inclus modulul de sequelize intr-o var 
+// var models  = require('./models');
 
 var app = express();
 app.use(bodyParser.json());
@@ -17,7 +18,9 @@ var sequelize = new Sequelize('parking', 'deny', '', { //  o instanta a clasei s
    port: 3306
 });
 
-//--------------------------------------------------------creez  tabela parkingSpaces----------------------------------------------------
+//--------------------------------------------------------creez  tabela parkingSpaces, structura tabelei e definita in models/ParkingSpaces----------------------------------------------------
+
+// var ParkingSpaces=models.ParkingSpaces;
 var ParkingSpaces = sequelize.define('parkingSpaces', { // creez o noua tabela parkingSpaces
   idParkingSpace: {  // nume atribut in cod
     type: Sequelize.INTEGER, //tip atribut
@@ -57,7 +60,10 @@ var ParkingSpaces = sequelize.define('parkingSpaces', { // creez o noua tabela p
 
 
 //--------------------------------------------------------creez  tabela Tickets----------------------------------------------------
-var Tickets = sequelize.define('tickets', { // creez o noua tabela tickets
+
+// var Tickets = models.Tickets;
+
+ var Tickets = sequelize.define('tickets', { // creez o noua tabela tickets
   idTicket: {  // nume atribut in cod
     type: Sequelize.INTEGER, //tip atribut
     field: 'idTicket',
@@ -78,8 +84,8 @@ var Tickets = sequelize.define('tickets', { // creez o noua tabela tickets
  timestamps: false
     
 });
-
 //--------------------------------------------------------creez  tabela Bills----------------------------------------------------
+// var Bills=models.Bills;
 var Bills = sequelize.define('bills', { // creez o noua tabela Bills
   idBill: {  // nume atribut in cod
     type: Sequelize.INTEGER, //tip atribut
@@ -106,6 +112,7 @@ var Bills = sequelize.define('bills', { // creez o noua tabela Bills
     
 });
 
+
 // realizare legaturi intre tabele => 
 //foreign key ParkingSpaces-Tickets
 ParkingSpaces.belongsTo(Tickets, {foreignKey: 'idParkingSpace'});
@@ -113,6 +120,10 @@ Tickets.hasOne(ParkingSpaces, {foreignKey: 'idParkingSpace'});
 //=> foreign key Tickets-Bills
 Tickets.belongsTo(Bills, {foreignKey: 'idTicket'});
 Bills.hasOne(Tickets, {foreignKey: 'idTicket'});
+
+
+
+
 
 
 //------------------------adaugare inregistare loc de parcare ----------------------
@@ -312,7 +323,8 @@ sequelize.sync();
 //---------------------------------------------------------------------------------------------------------------------------
 
 app.use('/intrare',express.static('intrare'));
+app.use(express.static('intrare'));
 
-
+app.use('/revedere',express.static('revedere'));
 
 app.listen(process.env.PORT);
