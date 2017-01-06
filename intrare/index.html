@@ -141,8 +141,8 @@
             }
             
             //------------------------------------------------------------functia care incarca tabelul cu locurile de parcare din baza de date-------------------------
-            function loadParking(){ 
-                
+            function loadParking()
+            { 
                 deleteOldStatusParking();
                 
                 $.ajax({url:'/parkingSpaces', success: function(data) {
@@ -152,111 +152,111 @@
                             { 
                                 if(data[i].status.toString()=="liber")
                                 {
-                                    $('#a').append("<button class='btn btn-warning' value='"+data[i].idParkingSpace+"' onClick='chose_parkingPlace(this)'>"+data[i].number+":"+data[i].parcel+":"+data[i].floor+"</button>");
+                                    $('#a').append("<button class='btn btn-warning' value='"+data[i].idParkingSpace+"' onClick='chose_parkingPlace(this)' >"+"<i class='fa fa-car' aria-hidden='true'></i>&nbsp;"+"</button>");
                                     
                                 }
                                 else
                                 {
-                                    $('#a').append("<button class='btn btn-danger'>"+data[i].number+":"+data[i].parcel+":"+data[i].floor+"</button>");
+                                    $('#a').append("<button class='btn btn-danger' data-toggle='modal' data-target='#modalOcupat'>"+"<i class='fa fa-car' aria-hidden='true'></i>&nbsp;"+"</button>");
                                 }
                             }else if(data[i].parcel=="B")
                                     { 
                                         if(data[i].status.toString()=="liber")
                                         {
-                                            $('#b').append("<button class='btn btn-warning' value='"+data[i].idParkingSpace+"' onClick='chose_parkingPlace(this)'>"+data[i].number+":"+data[i].parcel+":"+data[i].floor+"</button>");
+                                            $('#b').append("<button class='btn btn-warning' value='"+data[i].idParkingSpace+"' onClick='chose_parkingPlace(this)'>"+"<i class='fa fa-car' aria-hidden='true'></i>&nbsp;"+"</button>");
                                             
                                         }
                                         else
                                         {
-                                            $('#b').append("<button class='btn btn-danger'>"+data[i].number+":"+data[i].parcel+":"+data[i].floor+"</button>");
+                                            $('#b').append("<button class='btn btn-danger' data-toggle='modal' data-target='#modalOcupat'>"+"<i class='fa fa-car' aria-hidden='true'></i>&nbsp;"+"</button>");
                                         }
                                     } else if(data[i].parcel=="C")
                                             { 
                                                 if(data[i].status.toString()=="liber")
                                                 {
-                                                    $('#c').append("<button class='btn btn-warning' value='"+data[i].idParkingSpace+"' onClick='chose_parkingPlace(this)'>"+data[i].number+":"+data[i].parcel+":"+data[i].floor+"</button>");
+                                                    $('#c').append("<button class='btn btn-warning' value='"+data[i].idParkingSpace+"' onClick='chose_parkingPlace(this)'>"+"<i class='fa fa-car' aria-hidden='true'></i>&nbsp;"+"</button>");
                                                     
                                                 }
                                                 else
                                                 {
-                                                    $('#c').append("<button class='btn btn-danger'>"+data[i].number+":"+data[i].parcel+":"+data[i].floor+"</button>");
+                                                    $('#c').append("<button class='btn btn-danger' data-toggle='modal' data-target='#modalOcupat'>"+"<i class='fa fa-car' aria-hidden='true'></i>&nbsp;"+"</button>");
                                                 }
                                             }else if(data[i].parcel=="D")
                                                     { 
                                                         if(data[i].status.toString()=="liber")
                                                         {
-                                                            $('#d').append("<button class='btn btn-warning' value='"+data[i].idParkingSpace+"' onClick='chose_parkingPlace(this)'>"+data[i].number+":"+data[i].parcel+":"+data[i].floor+"</button>");
+                                                            $('#d').append("<button class='btn btn-warning' value='"+data[i].idParkingSpace+"' onClick='chose_parkingPlace(this)'>"+"<i class='fa fa-car' aria-hidden='true'></i>&nbsp;"+"</button>");
                                                             
                                                         }
                                                         else
                                                         {
-                                                            $('#d').append("<button class='btn btn-danger'>"+data[i].number+":"+data[i].parcel+":"+data[i].floor+"</button>");
+                                                            $('#d').append("<button class='btn btn-danger' data-toggle='modal' data-target='#modalOcupat'>"+"<i class='fa fa-car' aria-hidden='true'></i>&nbsp;"+"</button>");
                                                         }
                                                     }else if(data[i].parcel=="E")
                                                             { 
                                                                 if(data[i].status.toString()=="liber")
                                                                 {
-                                                                    $('#e').append("<button class='btn btn-warning' value='"+data[i].idParkingSpace+"' onClick='chose_parkingPlace(this)'>"+data[i].number+":"+data[i].parcel+":"+data[i].floor+"</button>");
+                                                                    $('#e').append("<button class='btn btn-warning' value='"+data[i].idParkingSpace+"' onClick='chose_parkingPlace(this)'>"+"<i class='fa fa-car' aria-hidden='true'></i>&nbsp;"+"</button>");
                                                                     
                                                                 }
                                                                 else
                                                                 {
-                                                                    $('#e').append("<button class='btn btn-danger'>"+data[i].number+":"+data[i].parcel+":"+data[i].floor+"</button>");
+                                                                    $('#e').append("<button class='btn btn-danger' data-toggle='modal' data-target='#modalOcupat'>"+"<i class='fa fa-car' aria-hidden='true'></i>&nbsp;"+"</button>");
                                                                 }
                                                             }else if(data[i].parcel=="F")
                                                                     { 
                                                                         if(data[i].status.toString()=="liber")
                                                                         {
-                                                                            $('#f').append("<button class='btn btn-warning' value='"+data[i].idParkingSpace+"' onClick='chose_parkingPlace(this)'>"+data[i].number+":"+data[i].parcel+":"+data[i].floor+"</button>");
+                                                                            $('#f').append("<button class='btn btn-warning' value='"+data[i].idParkingSpace+"' onClick='chose_parkingPlace(this)'>"+"<i class='fa fa-car' aria-hidden='true'></i>&nbsp;"+"</button>");
                                                                             
                                                                         }
                                                                         else
                                                                         {
-                                                                            $('#f').append("<button class='btn btn-danger'>"+data[i].number+":"+data[i].parcel+":"+data[i].floor+"</button>");
+                                                                            $('#f').append("<button class='btn btn-danger' data-toggle='modal' data-target='#modalOcupat'>"+"<i class='fa fa-car' aria-hidden='true'></i>&nbsp;"+"</button>");
                                                                         }
                                                                     }else if(data[i].parcel=="G")
                                                                             { 
                                                                                 if(data[i].status.toString()=="liber")
                                                                                 {
-                                                                                    $('#g').append("<button class='btn btn-warning' value='"+data[i].idParkingSpace+"' onClick='chose_parkingPlace(this)'>"+data[i].number+":"+data[i].parcel+":"+data[i].floor+"</button>");
+                                                                                    $('#g').append("<button class='btn btn-warning' value='"+data[i].idParkingSpace+"' onClick='chose_parkingPlace(this)'>"+"<i class='fa fa-car' aria-hidden='true'></i>&nbsp;"+"</button>");
                                                                                     
                                                                                 }
                                                                                 else
                                                                                 {
-                                                                                    $('#g').append("<button class='btn btn-danger'>"+data[i].number+":"+data[i].parcel+":"+data[i].floor+"</button>");
+                                                                                    $('#g').append("<button class='btn btn-danger' data-toggle='modal' data-target='#modalOcupat'>"+"<i class='fa fa-car' aria-hidden='true'></i>&nbsp;"+"</button>");
                                                                                 }
                                                                             }else if(data[i].parcel=="H")
                                                                                     { 
                                                                                         if(data[i].status.toString()=="liber")
                                                                                         {
-                                                                                            $('#h').append("<button class='btn btn-warning' value='"+data[i].idParkingSpace+"' onClick='chose_parkingPlace(this)'>"+data[i].number+":"+data[i].parcel+":"+data[i].floor+"</button>");
+                                                                                            $('#h').append("<button class='btn btn-warning' value='"+data[i].idParkingSpace+"' onClick='chose_parkingPlace(this)'>"+"<i class='fa fa-car' aria-hidden='true'></i>&nbsp;"+"</button>");
                                                                                             
                                                                                         }
                                                                                         else
                                                                                         {
-                                                                                            $('#h').append("<button class='btn btn-danger'>"+data[i].number+":"+data[i].parcel+":"+data[i].floor+"</button>");
+                                                                                            $('#h').append("<button class='btn btn-danger' data-toggle='modal' data-target='#modalOcupat'>"+"<i class='fa fa-car' aria-hidden='true'></i>&nbsp;"+"</button>");
                                                                                         }
                                                                                     }else if(data[i].parcel=="I")
                                                                                             { 
                                                                                                 if(data[i].status.toString()=="liber")
                                                                                                 {
-                                                                                                    $('#i').append("<button class='btn btn-warning' value='"+data[i].idParkingSpace+"' onClick='chose_parkingPlace(this)'>"+data[i].number+":"+data[i].parcel+":"+data[i].floor+"</button>");
+                                                                                                    $('#i').append("<button class='btn btn-warning' value='"+data[i].idParkingSpace+"' onClick='chose_parkingPlace(this)'>"+"<i class='fa fa-car' aria-hidden='true'></i>&nbsp;"+"</button>");
                                                                                                     
                                                                                                 }
                                                                                                 else
                                                                                                 {
-                                                                                                    $('#i').append("<button class='btn btn-danger'>"+data[i].number+":"+data[i].parcel+":"+data[i].floor+"</button>");
+                                                                                                    $('#i').append("<button class='btn btn-danger' data-toggle='modal' data-target='#modalOcupat'>"+"<i class='fa fa-car' aria-hidden='true'></i>&nbsp;"+"</button>");
                                                                                                 }
                                                                                             }else if(data[i].parcel=="J")
                                                                                                     { 
                                                                                                         if(data[i].status.toString()=="liber")
                                                                                                         {
-                                                                                                            $('#j').append("<button class='btn btn-warning' value='"+data[i].idParkingSpace+"' onClick='chose_parkingPlace(this)'>"+data[i].number+":"+data[i].parcel+":"+data[i].floor+"</button>");
+                                                                                                            $('#j').append("<button class='btn btn-warning' value='"+data[i].idParkingSpace+"' onClick='chose_parkingPlace(this)'>"+"<i class='fa fa-car' aria-hidden='true'></i>&nbsp;"+"</button>");
                                                                                                             
                                                                                                         }
                                                                                                         else
                                                                                                         {
-                                                                                                            $('#j').append("<button class='btn btn-danger'>"+data[i].number+":"+data[i].parcel+":"+data[i].floor+"</button>");
+                                                                                                            $('#j').append("<button class='btn btn-danger' data-toggle='modal' data-target='#modalOcupat'>"+"<i class='fa fa-car' aria-hidden='true'></i>&nbsp;"+"</button>");
                                                                                                         }
                                                                                                     }
                             
@@ -309,15 +309,17 @@
                       type: 'PUT',
                       data: "status=ocupat",
                       success: function(data) {
-                        
+                       loadParking(); 
                       }
                     });
-            
+                    
+                 
             }
             
+            //---------------------------------------------------functie care pregateste ticketul pt noul client
             function newClient()
             {
-                loadParking();
+             
             deleteOldStatusTicket();
                 
             }
@@ -391,27 +393,32 @@
                             
                             
                         </div>  
-                    </div>   
+                        
+                    </div>  
                     
-                <div >
-                    <buton class="btn btn-info" onClick="newClient()">Next</buton>
+                    <div class="legenda" align=center>
+                            <button class="btn btn-warning"><i class="fa fa-car" aria-hidden="true"></i>&nbsp;</button>
+                            <span>Liber</span>
+                            <button class="btn btn-danger"><i class="fa fa-car" aria-hidden="true"></i>&nbsp;</button>
+                            <span>Ocupat</span>
+                    </div>
+                    
                 </div>
                 
-                </div>
                 
+                <!------------------------------------------------fereastra care iese canda apesi pe buton cu loc de parcare ocupat ------------------------------->
                 
-                <!------------------------------------------------fereastra care iese canda apesi pe buton cu loc de parcare ocupat va trebui !!!!------------------------------->
-                
-                <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal fade" id="modalOcupat" role="dialog">
                     <div class="modal-dialog">
                       <!-- Modal content-->
                       <div class="modal-content">
                         <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h4 class="modal-title">Satus loc de parcare</h4>
+                          <h4 class="modal-title">Status parking space</h4>
                         </div>
                         <div class="modal-body">
-                          <p>Acest loc de parcare e ocupat! Alege un loc liber, marcat cu portocaliu.</p>
+                          <span>This parking space is busy! Chose an orange one .</span>
+                          <button type="button" class="btn btn-warning" ><i class="fa fa-car" aria-hidden="true"></i>&nbsp;</button>
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
@@ -420,9 +427,28 @@
                       
                     </div>
                 </div>
-  
+  <!------------------------------------------------fereastra pentru urmatorul client ------------------------------->
+                
+                <div class="modal fade" id="modalLiber" role="dialog">
+                    <div class="modal-dialog modal-lg ">
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        
+                        <div class="modal-body" align=center>
+                          
+                          <img src="https://klebeheld.de/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/w/a/wandtattoo_have_a_nice_day_1.png" class="haveDay">
+                          
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal" onClick="newClient()">Next client</button>
+                        </div>
+                      </div>
+                      
+                    </div>
+                </div>
   
                 
+                    
                 <!------------------------------------------------------ticket---------------------------------------------------------------------------------->
                 
                 
@@ -449,7 +475,9 @@
                     
                     </div>
                 </div>   
-                
+                <div >
+                    <buton class="btn btn-info " onClick="newClient()"  data-toggle='modal' data-target='#modalLiber'>Tipareste</buton>
+                </div>
                 
                     
                 </div>
