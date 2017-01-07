@@ -67,8 +67,7 @@ var ParkingSpaces = sequelize.define('parkingSpaces', { // creez o noua tabela p
   idTicket: {  // nume atribut in cod
     type: Sequelize.INTEGER, //tip atribut
     field: 'idTicket',
-    primaryKey: true,
-    autoIncrement: true
+    primaryKey: true
   },
   idParkingSpace: {
     type: Sequelize.INTEGER,
@@ -326,6 +325,7 @@ app.use('/entry',express.static('entry'));
 app.use(express.static('entry'));
 
 app.use('/departure',express.static('departure'));
+app.use('/util',express.static('util'));
 
 
 app.listen(process.env.PORT);

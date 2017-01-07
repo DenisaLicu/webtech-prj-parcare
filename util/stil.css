@@ -29,25 +29,3 @@ div.text{
 #formular{
     padding-top: 20px;
 }
-
-div.bill{
-    border:2px solid black;
-    margin-top: 100px;
-    margin-left: 100px;
-    width: 400px;
-    height: 200px;
-}
-
-div#antetBill{
-    text-align: center;
-}
-
- div.center{
-   text-align: center;
-}
-
-.billText
-{
-    font-weight: bold;
-    font-size: 20px;
-}

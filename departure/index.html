@@ -7,6 +7,7 @@
         <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
             
         <link rel="stylesheet" type="text/css" href="stil.css">
           
@@ -18,26 +19,64 @@
         mainApp.controller('parkingController', function($scope,$http)
          {      $scope.space = 
                 {
-                    floor:"",
-                    parcel:"",
-                    number:"",
-                    idParkingSpace:""
+                    ticketId:"",
+                    spaceId:"",
+                    date:"",
+                    priceHour:"5",
+                    timeH:"",
+                    price:""
                 },
                 $scope.loadData = function () 
-                {
-                    $http.get("/parkingSpaces").success(function(data) 
-                    {   var spaceObject;
-                        spaceObject=$scope.space;
-                       for(var i = 0; i<data.length;i++) 
-                        {  if(data[i].floor==spaceObject.floor && data[i].parcel==(spaceObject.parcel.toUpperCase())&&data[i].number==spaceObject.number)
-                            {$scope.idParkingSpace=data[i].idParkingSpace;
-                               return $scope.idParkingSpace; 
+                {   var spaceObject;
+                    spaceObject=$scope.space;
+                    var url="/tickets/"+spaceObject.ticketId;
+                    
+                    $http.get(url).success(function(data) 
+                    {   
+                        $scope.spaceId=data.idParkingSpace;
+                        $scope.date=data.entryDate;
+                        
+                        var t = $scope.date.split(/[- : . T Z]/);
+                        var currentdate=new Date();
+                        var d =currentdate.getDate()-t[2];
+                        var h=currentdate.getHours()-t[3]-2;
+                        var m=currentdate.getMinutes()-t[4];
+                        var time=h;
+                        if (m>0)
+                            {
+                                time=time+1;
                             }
-                        }
+                        $scope.timeH=time;
+                        $scope.price=time*$scope.priceHour;
+                        alert( $scope.priceHour+"..."+ $scope.price);
+                        
+                        makeBill($scope.date,$scope.price);
                     });
+                    
+                    
                 }
-                
+                 
         });
+         
+        
+        function makeBill(d,p)
+        {   
+            var currentdate=new Date();
+            var dOut = currentdate.getDate() + "/"+(currentdate.getMonth()+1)+ "/" + currentdate.getFullYear() + " " + currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+            
+            var t = d.split(/[- : . T Z]/);  
+            var tt=0;
+            tt=(tt-t[3])*(-1)+2;
+            
+            $('#dateIn').append("<span class='billText'>"+'Entry date:'+"</span>");
+            $('#dateIn').append("<span >"+t[2]+"/"+t[1]+"/"+t[0]+" "+tt+":"+t[4]+":"+t[5]+"</span>");
+            $('#dateOut').append("<span class='billText'>"+'Departure date:'+"</span>");
+            $('#dateOut').append("<span >"+dOut+"</span>");
+            $('#price').append("<span class='billText'>"+'Price:'+"</span>");
+            $('#price').append("<span >"+p+" lei " +"</span>");
+            
+        }
+         
          
       </script>
    </head>
@@ -48,45 +87,41 @@
                 <div class="col-sm-6"  style="background-color:white;">
                     <div >
                         <div class="bon">
-                            <div class="text">Enter your parking space dates:</div>
-                            <form name="myForm" ng-app = "parkingApp" ng-controller = "parkingController" class="form-horizontal" id="formular">
+                            <div class="text">Enter your parking ticket id:</div>
+                            <form name="myForm" ng-app = "parkingApp" ng-controller = "parkingController" class="form-horizontal" id="formular" data-ng-init="priceHour=5">
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="fl">Floor:</label>
+                                    <label class="control-label col-sm-2" for="tk">Ticket id:</label>
                                     <div class="col-sm-10">
-                                        <input name="myFloor" type="text" ng-model="space.floor" placeholder="Enter floor here"  class="form-control" id="fl" required>
+                                        <input name="myTicket" type="text" ng-model="space.ticketId" placeholder="Enter ticket id here"  class="form-control" id="tk" required>
                                     </div>
-                                    <span class="rosu" ng-show="myForm.myFloor.$touched && myForm.myFloor.$invalid">The floor is required !</span>
+                                    <span class="rosu" ng-show="myForm.myTicket.$touched && myForm.myTicket.$invalid">The ticket id is required !</span>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2" for="pr">Parcel:</label>
-                                    <div class="col-sm-10">
-                                        <input name="myParcel" type="text" ng-model="space.parcel" placeholder="Enter parcel here"  class="form-control" id="pr" required>
-                                    </div>
-                                    <span class="rosu" ng-show="myForm.myParcel.$touched && myForm.myParcel.$invalid">The parcel is required !</span>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2" for="nr">Number:</label>
-                                    <div class="col-sm-10">
-                                        <input name="myNumber" type="text" ng-model="space.number" placeholder="Enter number here"  class="form-control" id="nr" required>
-                                    </div>
-                                    <span class="rosu" ng-show="myForm.myNumber.$touched && myForm.myNumber.$invalid">The number is required !</span>
-                                </div>
+                                
                                 <div class="form-group">        
                                   <div class="col-sm-offset-2 col-sm-10">
                                     <button  class="btn btn-default btn-block" ng-click="loadData()">OK</button>
                                   </div>
                                 </div>
                                 
-                                Ticket id: <input name="myTicketId" type="text"  placeholder="Enter ticket id here" required>
-                                <span class="rosu" ng-show="myForm.myTicketId.$touched && myForm.myTicketId.$invalid">The number is required !</span><br>
                                 
-                                Id={{idParkingSpace}}
+                                Id={{spaceId}} data={{date}}  price==={{price}}  h==={{timeH}} 
+                                
                             </form>
                         </div>
                     </div>    
                 </div>
-                <div class="col-sm-6 " style="background-color:blue;">
-                    gg
+                <div class="col-sm-6 " style="background-color:white;">
+                    <div class="bill">
+                        <div id="antetBill">
+                            <h3 >PARKING BILL</h3>
+                        </div>   
+                        <div class="bodyBill" >
+                            <div id="dateIn" class="center"></div>
+                            <div id="dateOut" class="center"></div>
+                            <div id="price" class="center"></div>
+                        </div>
+                        
+                    </div>
                 </div>
             </div>
         </div>    
