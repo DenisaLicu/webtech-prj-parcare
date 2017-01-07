@@ -1,5 +1,5 @@
  /*global $*/
-       var idt=0; //id ticket
+        
        
             $(document).ready(function(){
                 loadParking();
@@ -83,6 +83,8 @@
                                
             }
             
+            //--------------------------------------------functie care sterge vechiul ticket------------------------------------------------------
+            
             function deleteOldStatusTicket()
             {
                 var myNode = document.getElementById("antet");
@@ -117,6 +119,12 @@
                 }
                 
                 var myNode = document.getElementById("date");
+                while (myNode.lastChild)
+                {
+                    myNode.removeChild(myNode.lastChild);
+                }
+                
+                var myNode = document.getElementById("footer");
                 while (myNode.lastChild)
                 {
                     myNode.removeChild(myNode.lastChild);
@@ -256,49 +264,65 @@
             {
                 var id_selected_place=clicked_place.value;//id-ul locului de parcare selectat
                 
-                createTicket(id_selected_place);
+                findTicketId(id_selected_place);
                
             }
             
             
+            //----------------------------------functie care cauta ultimul id de ticket pt a nu se repeta, nu pot pune autoincrement pt ca vreau sa-l scriu pe bilet deci trebuie sa-l sctiu nu sa-l las la latitudinea bd-------
+            function findTicketId(id_selected_place)
+            { var max;var idt;
+                $.ajax({url:'/tickets', success: function(data) 
+                   {   max=data[0].idTicket;
+                        for(var i = 1; i<data.length;i++) 
+                        {   if(max<data[i].idTicket)
+                            {
+                                max=data[i].idTicket;
+                            }
+                        }
+                      idt=max+1; 
+                      
+                      createTicket(id_selected_place,idt);
+                   }
+                 });  
+            }
+            
             //--------------------------------------------functie care creaza ticketul de parcare => pe baza id-ului locului de parcare primit, ia din baza de date, datele locului de parcare si le pune pe ticket + data curenta-------------7
             //---------------------------------------------tot functia asta construieste un nou ticket cu datele astea si il adauga in baza de date------------------------
             
-            function createTicket(id_selected_place)
+            function createTicket(id_selected_place,idt)
             {   
-                idt=idt+1;
-                var currentdate=new Date();
-                var datetime = currentdate.getDate() + "/"+(currentdate.getMonth()+1)+ "/" + currentdate.getFullYear() + " " + currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
-                
-                
-                 var url='/parkingSpaces/'+id_selected_place;
-                $.ajax({url:url, success: function(data) {
-                        $('#antet').append("<span class='numberSpace'>"+data.floor+":"+data.parcel+":"+data.number+"</span>");
-                        $('#floor').append("<span >"+'floor:'+"</span>");
-                        $('#floor').append("<span class='place'>"+data.floor+"</span>");
-                        $('#parcel').append("<span >"+'parcel:'+"</span>");
-                        $('#parcel').append("<span class='place'>"+data.parcel+"</span>");
-                        $('#number').append("<span >"+'number:'+"</span>");
-                        $('#number').append("<span class='place'>"+data.number+"</span>");
-                        $('#date').append("<span >"+'date:'+"</span>");
-                        $('#date').append("<span >"+datetime+"</span>");
-                        $('#footer').append("<span >"+'Ticket id:'+"</span>");
-                        $('#footer').append("<span >"+idt+"</span>");
-                }});    
-                    
-                    //     //-----------------------------------------creez un nou ticket si il adaug in baza de date----------------------
-                 $.post( "/tickets", { "idTicket":idt,"idParkingSpace":id_selected_place,"entryDate":currentdate } );
-                 
-                 //-----------------------------------------------modific starea locului de parcare selectat din liber in ocupat si reincarc parcarea-----------
-                  $.ajax({
-                      url: url,
-                      type: 'PUT',
-                      data: "status=ocupat",
-                      success: function(data) {
-                       loadParking(); 
-                      }
-                    });
-                    
+                        var currentdate=new Date();
+                        var datetime = currentdate.getDate() + "/"+(currentdate.getMonth()+1)+ "/" + currentdate.getFullYear() + " " + currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+                        
+                        
+                        var url='/parkingSpaces/'+id_selected_place;
+                        $.ajax({url:url, success: function(data) {
+                                $('#antet').append("<span class='numberSpace'>"+data.floor+":"+data.parcel+":"+data.number+"</span>");
+                                $('#floor').append("<span >"+'floor:'+"</span>");
+                                $('#floor').append("<span class='place'>"+data.floor+"</span>");
+                                $('#parcel').append("<span >"+'parcel:'+"</span>");
+                                $('#parcel').append("<span class='place'>"+data.parcel+"</span>");
+                                $('#number').append("<span >"+'number:'+"</span>");
+                                $('#number').append("<span class='place'>"+data.number+"</span>");
+                                $('#date').append("<span >"+'date:'+"</span>");
+                                $('#date').append("<span >"+datetime+"</span>");
+                                $('#footer').append("<span >"+'Ticket id:'+"</span>");
+                                $('#footer').append("<span >"+idt+"</span>");
+                        }});    
+                            
+                            //     //-----------------------------------------creez un nou ticket si il adaug in baza de date----------------------
+                         $.post( "/tickets", { "idTicket":idt,"idParkingSpace":id_selected_place,"entryDate":currentdate } );
+                         
+                         //-----------------------------------------------modific starea locului de parcare selectat din liber in ocupat si reincarc parcarea-----------
+                          $.ajax({
+                              url: url,
+                              type: 'PUT',
+                              data: "status=ocupat",
+                              success: function(data) {
+                               loadParking(); 
+                              }
+                            });
                  
             }
             

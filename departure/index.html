@@ -48,19 +48,33 @@
                             }
                         $scope.timeH=time;
                         $scope.price=time*$scope.priceHour;
-                        alert( $scope.priceHour+"..."+ $scope.price);
                         
                         makeBill($scope.date,$scope.price);
                     });
                     
                     
+                    var url2='/parkingSpaces/'+$scope.spaceId;
+                    $.ajax({
+                              url: url2,
+                              type: 'PUT',
+                              data: "status=liber",
+                              success: function(data) { alert('s-a eliberat locul');
+                              }
+                            });
+                            
+                    // $http.put(url2+"status=liber").success(function (data) {
+                    //       alert("Locul s-a eliberat...."+$scope.spaceId+" raspuns: "+data);
+                    //     })
+                        
                 }
                  
         });
          
-        
+        //--------------------------------------functie care face un nou bon cu datele primite----------------------------------------------
         function makeBill(d,p)
         {   
+            deleteOldBill(); //sterg vechiul bon 
+            
             var currentdate=new Date();
             var dOut = currentdate.getDate() + "/"+(currentdate.getMonth()+1)+ "/" + currentdate.getFullYear() + " " + currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
             
@@ -75,6 +89,28 @@
             $('#price').append("<span class='billText'>"+'Price:'+"</span>");
             $('#price').append("<span >"+p+" lei " +"</span>");
             
+        }
+        
+        //-------------------------------------------------------------functie care sterge datele vechiului bon 
+        function deleteOldBill(){
+            
+            var myNode = document.getElementById("dateIn");
+                while (myNode.lastChild)
+                {
+                    myNode.removeChild(myNode.lastChild);
+                }
+                
+            var myNode = document.getElementById("dateOut");
+                while (myNode.lastChild)
+                {
+                    myNode.removeChild(myNode.lastChild);
+                }
+                
+            var myNode = document.getElementById("price");
+                while (myNode.lastChild)
+                {
+                    myNode.removeChild(myNode.lastChild);
+                }    
         }
          
          
@@ -103,8 +139,6 @@
                                   </div>
                                 </div>
                                 
-                                
-                                Id={{spaceId}} data={{date}}  price==={{price}}  h==={{timeH}} 
                                 
                             </form>
                         </div>
