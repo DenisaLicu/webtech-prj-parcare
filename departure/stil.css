@@ -20,6 +20,11 @@ div.bon{
     margin-left: 150px;
 }
 
+div.next{
+    margin-left: 100px;
+    margin-right: 150px;
+    margin-top: 10px;
+}
 div.text{
     font-weight: bold;
     font-size:16;
@@ -51,3 +56,9 @@ div#antetBill{
     font-weight: bold;
     font-size: 20px;
 }
+
+.haveDay{
+    width: 600px;
+  }
+                
+                

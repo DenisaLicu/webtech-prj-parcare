@@ -102,7 +102,7 @@ var Bills = sequelize.define('bills', { // creez o noua tabela Bills
     allowNull: false
   },
   price: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.INTEGER,
     field: 'price'
   }
 }, {
@@ -325,7 +325,7 @@ app.use('/entry',express.static('entry'));
 app.use(express.static('entry'));
 
 app.use('/departure',express.static('departure'));
-app.use('/util',express.static('util'));
+app.use('/administare',express.static('administare'));
 
 
 app.listen(process.env.PORT);

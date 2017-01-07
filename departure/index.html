@@ -4,10 +4,14 @@
    
    <head>
         <title>Parking System-departure</title>
-        <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+        
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+        
             
         <link rel="stylesheet" type="text/css" href="stil.css">
           
@@ -50,22 +54,28 @@
                         $scope.price=time*$scope.priceHour;
                         
                         makeBill($scope.date,$scope.price);
+                            
+                    
                     });
                     
+                    var currentdate=new Date();
+                    $http.post('/bills',{ "idTicket":spaceObject.ticketId,"departureDate":currentdate,"price":$scope.price}).success(function(data) 
+                    {   
+                    });
                     
                     var url2='/parkingSpaces/'+$scope.spaceId;
                     $.ajax({
                               url: url2,
                               type: 'PUT',
                               data: "status=liber",
-                              success: function(data) { alert('s-a eliberat locul');
+                              success: function(data) { alert("Locul s-a eliberat");
                               }
                             });
                             
                     // $http.put(url2+"status=liber").success(function (data) {
                     //       alert("Locul s-a eliberat...."+$scope.spaceId+" raspuns: "+data);
                     //     })
-                        
+                    
                 }
                  
         });
@@ -91,7 +101,7 @@
             
         }
         
-        //-------------------------------------------------------------functie care sterge datele vechiului bon 
+        //-------------------------------------------------------------functie care sterge datele vechiului bon ----------------------------------
         function deleteOldBill(){
             
             var myNode = document.getElementById("dateIn");
@@ -128,7 +138,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="tk">Ticket id:</label>
                                     <div class="col-sm-10">
-                                        <input name="myTicket" type="text" ng-model="space.ticketId" placeholder="Enter ticket id here"  class="form-control" id="tk" required>
+                                        <input name="myTicket" type="text" ng-model="space.ticketId" placeholder="Enter ticket id here"  class="form-control" id="tk"  ng-pattern="/^\d+$/" maxlength="5" required>
                                     </div>
                                     <span class="rosu" ng-show="myForm.myTicket.$touched && myForm.myTicket.$invalid">The ticket id is required !</span>
                                 </div>
@@ -156,11 +166,33 @@
                         </div>
                         
                     </div>
+                    <div class="next">
+                       <button class="btn btn-default btn-block" data-toggle='modal' data-target='#modalNext' onClick="deleteOldBill()">Print bill</button> 
+                    </div>
                 </div>
             </div>
         </div>    
         
-      
+    <!------------------------------------------------fereastra pentru urmatorul client ------------------------------->
+                
+                <div class="modal fade" id="modalNext" role="dialog">
+                    <div class="modal-dialog modal-lg ">
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        
+                        <div class="modal-body" align=center>
+                          
+                          <img src="http://2.bp.blogspot.com/-fEluZV0Yae8/U9k0wLVHUPI/AAAAAAAALT4/yzagZdkaJWQ/s1600/goodbye.png" class="haveDay">
+                          
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal" onClick="deleteOldBill()">Next client</button>
+                        </div>
+                      </div>
+                      
+                    </div>
+                </div>
+    
       
    </body>
 </html>

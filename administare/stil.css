@@ -5,19 +5,19 @@ input.ng-valid {
     background-color:lightgreen;
 }
 
-span.rosu{
+.rosu{
     color: red;
     font-size:14px;
     font-weight:bols;
     font-style: italic;
 }
-div.bon{
+div.modifyTab{
     border:2px solid black;
     width: 400px;
-    height: 400px;
+    height: 350px;
     padding: 30px;
     margin-top: 100px;
-    margin-left: 150px;
+    margin-left: 400px;
 }
 
 div.text{
