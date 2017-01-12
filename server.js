@@ -130,7 +130,7 @@ Bills.hasOne(Tickets, {foreignKey: 'idTicket'});
 //     task.save();
 // });  
 
-//---------------------------------gasire iloc de parcare cu numarul 7---------------------
+//---------------------------------gasire loc de parcare cu numarul 7---------------------
 // ParkingSpaces.findAll({
 //     where:{
 //         number:7
@@ -206,7 +206,7 @@ app.get('/tickets',function(req,res){
     });
 });
 // app.get('/tickets',function(req,res){
-//         res.status(200).send([]); //cand intru pe /rentals afiseaza []
+//         res.status(200).send([]); //cand intru pe /tickets afiseaza []
 // });
  
 app.post('/tickets',function(req,res)
@@ -264,10 +264,7 @@ app.get('/bills',function(req,res){
         res.status(200).send(gasit);
     });
 });
-// app.get('/tickets',function(req,res){
-//         res.status(200).send([]); //cand intru pe /rentals afiseaza []
-// });
- 
+
 app.post('/bills',function(req,res)
  {Bills.create(req.body).then(function(bill){
    Bills.findById(bill.id).then(function(bill){
@@ -325,7 +322,7 @@ app.use('/entry',express.static('entry'));
 app.use(express.static('entry'));
 
 app.use('/departure',express.static('departure'));
-app.use('/administare',express.static('administare'));
+app.use('/administration',express.static('administration'));
 
 
 app.listen(process.env.PORT);

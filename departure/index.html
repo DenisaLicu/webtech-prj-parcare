@@ -3,7 +3,7 @@
 <html>
    
    <head>
-        <title>Parking System-departure</title>
+        <title>Parking 3S - departure</title>
         
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -64,17 +64,17 @@
                     });
                     
                     var url2='/parkingSpaces/'+$scope.spaceId;
-                    $.ajax({
-                              url: url2,
-                              type: 'PUT',
-                              data: "status=liber",
-                              success: function(data) { alert("Locul s-a eliberat");
-                              }
-                            });
+                    // $.ajax({
+                    //           url: url2,
+                    //           type: 'PUT',
+                    //           data: "status=liber",
+                    //           success: function(data) { alert("Locul s-a eliberat");
+                    //           }
+                    //         });
                             
-                    // $http.put(url2+"status=liber").success(function (data) {
-                    //       alert("Locul s-a eliberat...."+$scope.spaceId+" raspuns: "+data);
-                    //     })
+                    $http.put(url2,{"status":"liber"}).success(function (data) {
+                          alert("Locul s-a eliberat...."+$scope.spaceId+" raspuns: "+data);
+                        })
                     
                 }
                  
